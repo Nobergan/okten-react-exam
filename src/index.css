@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@import 'swiper/css';
+@import 'swiper/css/free-mode';
+@import 'swiper/css/navigation';
+@import 'swiper/css/thumbs';
+
+body {
+    background: #050609;
+}
