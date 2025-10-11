@@ -1,0 +1,56 @@
+.hero-slider-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #000;
+}
+
+.hero-swiper {
+  flex: 1 1 auto;
+  width: 100%;
+  height: calc(100vh - 120px);
+  --swiper-navigation-color: red;
+  position: relative;
+}
+
+.thumbs-swiper {
+  display: flex;
+  justify-content: center;
+  flex: 0 0 110px;
+  box-sizing: border-box;
+  padding: 10px 0;
+  width: 100%;
+  background: #000;
+}
+
+.thumbs-swiper .swiper-slide {
+    height: 100px;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+
+.thumbs-swiper .swiper-slide-thumb-active {
+    opacity: 1;
+}
+
+.thumbs-swiper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    width: 4rem !important;
+    height: 4rem !important;
+}
+
+@media (max-width: 475px) {
+    .swiper-button-prev,
+    .swiper-button-next {
+        top: 40% !important;
+        width: 3rem !important;
+        height: 3em !important;
+    }
+}
