@@ -3,7 +3,7 @@ import { FilmsWidgetComponent } from '@components';
 
 import { UseGenres } from '@hooks';
 
-import { homeWidgetSections, Media, MediaSource } from '@constants';
+import { HOME_WIDGET_SECTIONS, Media, MediaSource } from '@constants';
 
 export const HomePage = () => {
   const { getGenreNames } = UseGenres();
@@ -16,7 +16,9 @@ export const HomePage = () => {
         getGenreNames={getGenreNames}
       />
       <div className='container'>
-        {homeWidgetSections.map(({ key, title, source, mediaType }) => (
+        <div className='mt-13 h-[2px] w-full bg-[linear-gradient(90deg,rgba(0,0,0,0)_0%,#f80032_50%,rgba(0,0,0,0)_100%)]' />
+
+        {HOME_WIDGET_SECTIONS.map(({ key, title, source, mediaType }) => (
           <FilmsWidgetComponent
             title={title}
             source={source}
@@ -25,6 +27,8 @@ export const HomePage = () => {
             key={key}
           />
         ))}
+
+        <div className='mt-13 h-[2px] w-full bg-[linear-gradient(90deg,rgba(0,0,0,0)_0%,#f80032_50%,rgba(0,0,0,0)_100%)]' />
       </div>
     </>
   );
