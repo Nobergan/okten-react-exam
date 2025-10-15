@@ -53,7 +53,7 @@ export const FilmsWidgetComponent = ({
 
   return (
     <>
-      <h2 className='mt-[56px] text-2xl font-bold uppercase sm:mt-[72px] lg:mt-[84px] lg:text-[32px]'>
+      <h2 className='mt-[56px] text-2xl font-bold uppercase sm:mt-[72px] lg:mt-[52px] lg:text-[32px]'>
         {title}
       </h2>
 
