@@ -1,4 +1,5 @@
 export const MediaSource = {
   Trend: 'trending',
-  Popular: 'popular'
+  Popular: 'popular',
+  Upcoming: 'upcoming'
 } as const;
