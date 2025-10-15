@@ -53,26 +53,27 @@ export const FilmsWidgetComponent = ({
 
   return (
     <>
-      <h2 className='mt-[84px] text-[32px] font-bold uppercase'>{title}</h2>
-      <div className='relative mx-auto py-6'>
+      <h2 className='mt-[56px] text-2xl font-bold uppercase sm:mt-[72px] lg:mt-[84px] lg:text-[32px]'>
+        {title}
+      </h2>
+
+      <div className='relative mx-auto py-4 sm:py-5 lg:py-6'>
         <Swiper
           loop={films.length > 1}
           rewind={films.length <= 1}
           slidesPerView={4}
-          spaceBetween={24}
           navigation={{ prevEl: `.${filmPrev}`, nextEl: `.${filmNext}` }}
           modules={[Navigation]}
-          className='films-widget-swiper'
+          className='films-widget-swiper touch-pan-y'
           breakpoints={{
-            320: { slidesPerView: 1.2 },
-            640: { slidesPerView: 2 },
-            768: { slidesPerView: 3 },
-            1024: { slidesPerView: 4 }
+            320: { slidesPerView: 1, spaceBetween: 10 },
+            768: { slidesPerView: 2, spaceBetween: 0 },
+            1024: { slidesPerView: 4, spaceBetween: 24 }
           }}
         >
           {films.map((film) => (
             <SwiperSlide key={film.id}>
-              <div className='group relative h-full select-none'>
+              <div className='group relative mx-auto h-full w-[80%] select-none md:w-[80%] lg:w-[100%]'>
                 <FilmCardComponent
                   key={film.id}
                   film={film}
@@ -83,9 +84,16 @@ export const FilmsWidgetComponent = ({
           ))}
         </Swiper>
 
-        {/* Navigation buttons */}
+        {/* Navigation buttons (mobile-friendly) */}
         <button
-          className={`${filmPrev} absolute top-1/2 left-[-70px] z-20 -translate-y-1/2 cursor-pointer rounded-full bg-black/70 p-4 text-red-500 shadow-lg ring-1 ring-white/10 transition hover:bg-black/90`}
+          className={[
+            filmPrev,
+            'absolute z-20 rounded-full bg-black/70 text-red-500 shadow-lg ring-1 ring-white/10 transition',
+            // Size: larger touch targets on mobile, larger on md+
+            'p-2 md:p-3',
+            // Position: inside the carousel on small screens; outside on large
+            'top-1/2 left-[-10px] -translate-y-1/2 md:left-[-14px] lg:left-[-70px]'
+          ].join(' ')}
           aria-label='Previous'
         >
           <svg
@@ -94,7 +102,8 @@ export const FilmsWidgetComponent = ({
             viewBox='0 0 24 24'
             strokeWidth={4}
             stroke='currentColor'
-            className='h-8 w-8 text-red-500'
+            className='h-5 w-5 text-red-500 md:h-6 md:w-6'
+            aria-hidden
           >
             <path
               strokeLinecap='round'
@@ -102,10 +111,16 @@ export const FilmsWidgetComponent = ({
               d='M15 19l-7-7 7-7'
             />
           </svg>
+          <span className='sr-only'>Previous</span>
         </button>
 
         <button
-          className={`${filmNext} absolute top-1/2 right-[-70px] z-20 -translate-y-1/2 cursor-pointer rounded-full bg-black/70 p-4 text-red-500 shadow-lg ring-1 ring-white/10 transition hover:bg-black/90`}
+          className={[
+            filmNext,
+            'absolute z-20 rounded-full bg-black/70 text-red-500 shadow-lg ring-1 ring-white/10 transition',
+            'p-2 md:p-3',
+            'top-1/2 right-[-10px] -translate-y-1/2 md:right-[-14px] lg:right-[-70px]'
+          ].join(' ')}
           aria-label='Next'
         >
           <svg
@@ -114,7 +129,8 @@ export const FilmsWidgetComponent = ({
             viewBox='0 0 24 24'
             strokeWidth={4}
             stroke='currentColor'
-            className='h-8 w-8 text-red-500'
+            className='h-5 w-5 text-red-500 md:h-6 md:w-6'
+            aria-hidden
           >
             <path
               strokeLinecap='round'
@@ -122,6 +138,7 @@ export const FilmsWidgetComponent = ({
               d='M9 5l7 7-7 7'
             />
           </svg>
+          <span className='sr-only'>Next</span>
         </button>
       </div>
     </>
