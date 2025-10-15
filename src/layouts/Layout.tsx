@@ -5,7 +5,7 @@ export const Layout = () => {
   return (
     <>
       <Header />
-      <main>
+      <main className='min-h-screen bg-black font-sans text-[14px] text-white'>
         <Outlet />
       </main>
     </>
