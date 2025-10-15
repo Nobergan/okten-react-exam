@@ -7,8 +7,16 @@
 
 .container {
     width: 100%;
-    max-width: 1236px;
+    max-width: 475px;
     padding: 0 16px;
     margin: 0 auto;
     position: relative;
+
+    @media screen and (min-width: 768px){
+        max-width: 768px;
+    }
+
+    @media screen and (min-width: 1236px){
+        max-width: 1236px;
+    }
 }

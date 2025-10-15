@@ -24,9 +24,9 @@ export const FilmCardComponent = ({ film, filmGenres }: FilmCardProps) => {
         </div>
 
         {/* Film info */}
-        <div className='px-3 pt-3 pb-4'>
-          <div className='flex items-center gap-3'>
-            <h3 className='line-clamp-1 text-base font-semibold text-white'>
+        <div className='px-2 pt-3 pb-4 sm:px-3'>
+          <div className='flex items-center gap-2 sm:gap-3'>
+            <h3 className='line-clamp-1 text-sm font-semibold text-white sm:text-base'>
               {getTitle(film)}
             </h3>
             <div className='ml-auto flex items-center gap-1'>
@@ -47,11 +47,9 @@ export const FilmCardComponent = ({ film, filmGenres }: FilmCardProps) => {
               </span>
             </div>
           </div>
-          <div className='mt-1 flex items-center gap-2 text-sm text-zinc-400'>
+          <div className='mt-1 flex items-center gap-2 text-xs text-zinc-400 sm:text-sm'>
             <span className='opacity-90'>{getDate(film)}</span>
-            <span className='line-clamp-1 text-xs sm:text-sm md:text-base'>
-              {filmGenres}
-            </span>
+            <span className='line-clamp-1'>{filmGenres}</span>
           </div>
         </div>
       </div>
