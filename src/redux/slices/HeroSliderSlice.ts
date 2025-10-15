@@ -6,7 +6,7 @@ import {
 import type { ApiFilm } from '@models';
 import type { MediaSourceType, MediaType } from '@types';
 import { MediaSource, TTL_MS } from '@constants';
-import { getPopularFilms, getTrendAllFilms } from '@services';
+import { getPopularFilms, getTrendFilms } from '@services';
 import { getErrorMessage } from '@utils';
 
 type CacheItem = {
@@ -33,7 +33,7 @@ const initHeroSliderSliceState: HeroSliderSliceType = {
 };
 
 const makeKey = (source: MediaSourceType, mediaType?: MediaType) =>
-  `${source}:${mediaType ?? 'all'}`;
+  `${source}:${mediaType}`;
 
 export const loadFilms = createAsyncThunk<
   { films: ApiFilm[]; key: string; fromCache: boolean },
@@ -45,8 +45,8 @@ export const loadFilms = createAsyncThunk<
     const key = makeKey(source, mediaType);
     const { cache } = getState().heroSlider;
     const now = Date.now();
-
     const cached = cache[key];
+
     if (cached && now - cached.lastFetch < TTL_MS) {
       return { films: cached.films, key, fromCache: true };
     }
@@ -54,10 +54,10 @@ export const loadFilms = createAsyncThunk<
     try {
       const res =
         source === MediaSource.Trend
-          ? await getTrendAllFilms()
+          ? await getTrendFilms(mediaType)
           : await getPopularFilms(mediaType);
-
       const films = res?.results ?? [];
+
       return { films, key, fromCache: false };
     } catch (err) {
       return rejectWithValue(getErrorMessage(err));

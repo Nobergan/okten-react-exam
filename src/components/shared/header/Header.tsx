@@ -18,19 +18,19 @@ export const Header = () => {
     <>
       <li>
         <NavLink to='/' end className={baseLink} onClick={handleLinkClick}>
-          Main
+          Головна
           <span className='absolute -bottom-1 left-0 h-[2px] w-0 bg-red-600 transition-all duration-200 group-hover:w-full' />
         </NavLink>
       </li>
       <li>
         <NavLink to='/movies' className={baseLink} onClick={handleLinkClick}>
-          Movies
+          Фільми
           <span className='absolute -bottom-1 left-0 h-[2px] w-0 bg-red-600 transition-all duration-200 group-hover:w-full' />
         </NavLink>
       </li>
       <li>
         <NavLink to='/tv' className={baseLink} onClick={handleLinkClick}>
-          TV Shows
+          Серіали
           <span className='absolute -bottom-1 left-0 h-[2px] w-0 bg-red-600 transition-all duration-200 group-hover:w-full' />
         </NavLink>
       </li>

@@ -8,7 +8,7 @@ import type { ApiFilm } from '@models';
  * @returns The first air date or release date as a string
  */
 export const getDate = (film: ApiFilm): string =>
-  film.first_air_date || film.release_date || '';
+  (film.release_date || film.first_air_date)?.slice(0, 4) ?? '';
 
 /**
  * Returns the title or name of a film or TV show.
