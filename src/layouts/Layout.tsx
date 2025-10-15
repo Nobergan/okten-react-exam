@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router';
 import { Header } from '@components/shared';
+import Footer from '../components/shared/Footer.tsx';
 
 export const Layout = () => {
   return (
@@ -8,6 +9,7 @@ export const Layout = () => {
       <main className='min-h-screen bg-black font-sans text-[14px] text-white'>
         <Outlet />
       </main>
+      <Footer />
     </>
   );
 };
