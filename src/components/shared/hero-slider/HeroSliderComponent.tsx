@@ -2,9 +2,9 @@ import { useEffect, useState, useMemo } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
+
 import './HeroSliderComponent.css';
 
-import { UseGenres } from '@hooks';
 import { getDate, getImageUrl, getTitle } from '@utils';
 import { heroSliderFilmsActions } from '@redux/slices';
 
@@ -14,13 +14,19 @@ import { useAppDispatch, useAppSelector } from '@redux';
 type HeroSliderProps = {
   source: MediaSourceType;
   mediaType?: MediaType;
+  getGenreNames: (genreIds: number[] | undefined, type?: MediaType) => string;
 };
 
-export const HeroSliderComponent = ({ source, mediaType }: HeroSliderProps) => {
+export const HeroSliderComponent = ({
+  source,
+  mediaType,
+  getGenreNames
+}: HeroSliderProps) => {
   const dispatch = useAppDispatch();
-  const { films, loading, lastFetch } = useAppSelector((s) => s.heroSlider);
+  const { films, loading, lastFetch } = useAppSelector(
+    (state) => state.heroSlider
+  );
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
-  const { getGenreNames } = UseGenres();
 
   useEffect(() => {
     dispatch(heroSliderFilmsActions.loadFilms({ source, mediaType }));

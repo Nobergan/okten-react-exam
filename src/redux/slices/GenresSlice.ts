@@ -20,9 +20,9 @@ type GenresSliceState = {
 };
 
 const initialState: GenresSliceState = {
-  itemsByType: { movie: [], tv: [] },
-  errorByType: { movie: null, tv: null },
-  lastFetchByType: { movie: null, tv: null }
+  itemsByType: { all: [], movie: [], tv: [] },
+  errorByType: { all: null, movie: null, tv: null },
+  lastFetchByType: { all: null, movie: null, tv: null }
 };
 
 export const loadGenres = createAsyncThunk<
@@ -52,28 +52,29 @@ export const genresSlice = createSlice({
   name: 'genres',
   initialState,
   reducers: {},
-  extraReducers: (b) => {
-    b.addCase(loadGenres.pending, (state, action) => {
-      const t = action.meta.arg.mediaType;
-      state.errorByType[t] = null;
+  extraReducers: (builder) => {
+    builder.addCase(loadGenres.pending, (state, action) => {
+      const mediaType = action.meta.arg.mediaType;
+
+      state.errorByType[mediaType] = null;
     });
-    b.addCase(
+    builder.addCase(
       loadGenres.fulfilled,
       (
         state,
         action: PayloadAction<{ mediaType: MediaType; items: ApiGenre[] }>
       ) => {
         const { mediaType, items } = action.payload;
+
         state.itemsByType[mediaType] = items;
         state.lastFetchByType[mediaType] = Date.now();
       }
     );
-    b.addCase(loadGenres.rejected, (state, action) => {
-      const t = action.meta.arg.mediaType;
-      state.errorByType[t] =
-        (action.payload as string | undefined) ??
-        action.error.message ??
-        'Failed to load genres';
+    builder.addCase(loadGenres.rejected, (state, action) => {
+      const mediaType = action.meta.arg.mediaType;
+
+      state.errorByType[mediaType] =
+        action.payload ?? action.error.message ?? 'Failed to load genres';
     });
   }
 });

@@ -5,6 +5,10 @@
 @import 'swiper/css/navigation';
 @import 'swiper/css/thumbs';
 
-body {
-    background: #050609;
+.container {
+    width: 100%;
+    max-width: 1236px;
+    padding: 0 16px;
+    margin: 0 auto;
+    position: relative;
 }

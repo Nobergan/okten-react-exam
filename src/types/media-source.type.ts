@@ -1,1 +1,1 @@
-export type MediaSourceType = 'trending' | 'popular';
+export type MediaSourceType = 'trending' | 'popular' | 'upcoming';
