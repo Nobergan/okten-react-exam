@@ -41,3 +41,12 @@ export const getUpcomingFilmsWidget = async (): Promise<ApiFilms> => {
     `${baseUrl}/movie/upcoming?language=uk-UK&page=1&api_key=${tmdbApiKey}`
   ).then((response: Response) => response.json());
 };
+
+export const getMediaByType = async (
+  mediaType: MediaType,
+  page: number
+): Promise<ApiFilms> => {
+  return await fetch(
+    `${baseUrl}/discover/${mediaType}?include_adult=false&include_video=false&language=uk-UK&page=${page}&sort_by=vote_count.desc&vote_average.gte=6&api_key=${tmdbApiKey}`
+  ).then((response: Response) => response.json());
+};

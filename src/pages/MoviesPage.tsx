@@ -1,4 +1,4 @@
-import { HeroSliderComponent } from '@components/shared';
+import { FilmsListComponent, HeroSliderComponent } from '@components/shared';
 
 import { UseGenres } from '@hooks';
 
@@ -13,6 +13,11 @@ export const MoviesPage = () => {
         source={MediaSource.Popular}
         mediaType={Media.Movie}
         getGenreNames={getGenreNames}
+      />
+      <FilmsListComponent
+        mediaType={Media.Movie}
+        getGenreNames={getGenreNames}
+        title={'Рекомендуємо'}
       />
     </>
   );
