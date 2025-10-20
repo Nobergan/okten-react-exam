@@ -90,7 +90,7 @@ export const HeroSliderComponent = ({
 
               {/* Content block */}
               <div className='absolute inset-0 flex flex-col justify-end sm:justify-center'>
-                <div className='max-w-full px-4 pb-[5.5rem] text-white select-none sm:max-w-[42rem] sm:pb-[7rem] sm:pl-[8%] md:pb-[8rem] md:pl-[10%]'>
+                <div className='max-w-full px-4 pb-[5.5rem] text-white select-none sm:max-w-[42rem] sm:pb-[7rem] sm:pl-[8%] md:pb-[8rem] md:pl-[10%] lg:max-w-[46rem]'>
                   <h1 className='xs:text-3xl line-clamp-2 text-2xl font-extrabold tracking-tight uppercase drop-shadow-xl sm:text-4xl md:text-6xl'>
                     {getTitle(film)}
                   </h1>
