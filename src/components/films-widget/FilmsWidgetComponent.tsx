@@ -23,7 +23,7 @@ export const FilmsWidgetComponent = ({
   getGenreNames
 }: FilmsWidgetProps) => {
   const dispatch = useAppDispatch();
-  const { films, loading, lastFetch } = useAppSelector(
+  const { films, loading, error, lastFetch } = useAppSelector(
     (state) => state.filmsWidget.bySource[source][mediaType]
   );
   const filmPrev = `films-prev-${useId()}`;
@@ -39,6 +39,14 @@ export const FilmsWidgetComponent = ({
     return (
       <div className='flex min-h-[60svh] items-center justify-center'>
         <div className='h-10 w-10 animate-spin rounded-full border-b-4 border-red-600' />
+      </div>
+    );
+  }
+
+  if (error && !films.length) {
+    return (
+      <div className='container mx-auto px-3 py-6 text-center text-red-400'>
+        {error}
       </div>
     );
   }
@@ -88,10 +96,8 @@ export const FilmsWidgetComponent = ({
         <button
           className={[
             filmPrev,
-            'absolute z-20 rounded-full bg-black/70 text-red-500 shadow-lg ring-1 ring-white/10 transition',
-            // Size: larger touch targets on mobile, larger on md+
+            'absolute z-20 cursor-pointer rounded-full bg-black/70 text-red-500 shadow-lg ring-1 ring-white/10 transition',
             'p-2 md:p-3',
-            // Position: inside the carousel on small screens; outside on large
             'top-1/2 left-[-10px] -translate-y-1/2 md:left-[-14px] lg:left-[-70px]'
           ].join(' ')}
           aria-label='Previous'
@@ -117,7 +123,7 @@ export const FilmsWidgetComponent = ({
         <button
           className={[
             filmNext,
-            'absolute z-20 rounded-full bg-black/70 text-red-500 shadow-lg ring-1 ring-white/10 transition',
+            'absolute z-20 cursor-pointer rounded-full bg-black/70 text-red-500 shadow-lg ring-1 ring-white/10 transition',
             'p-2 md:p-3',
             'top-1/2 right-[-10px] -translate-y-1/2 md:right-[-14px] lg:right-[-70px]'
           ].join(' ')}

@@ -1,13 +1,19 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { genresSlice, heroSliderSlice, filmsWidgetSlice } from '@redux/slices';
+import {
+  genresSlice,
+  heroSliderSlice,
+  filmsWidgetSlice,
+  filmsListSlice
+} from '@redux/slices';
 
 export const store = configureStore({
   reducer: {
     heroSlider: heroSliderSlice.reducer,
     genres: genresSlice.reducer,
-    filmsWidget: filmsWidgetSlice.reducer
+    filmsWidget: filmsWidgetSlice.reducer,
+    filmsList: filmsListSlice.reducer
   }
 });
 
