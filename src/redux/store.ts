@@ -5,7 +5,8 @@ import {
   genresSlice,
   heroSliderSlice,
   filmsWidgetSlice,
-  filmsListSlice
+  filmsListSlice,
+  filmDetailsSlice
 } from '@redux/slices';
 
 export const store = configureStore({
@@ -13,7 +14,8 @@ export const store = configureStore({
     heroSlider: heroSliderSlice.reducer,
     genres: genresSlice.reducer,
     filmsWidget: filmsWidgetSlice.reducer,
-    filmsList: filmsListSlice.reducer
+    filmsList: filmsListSlice.reducer,
+    filmDetails: filmDetailsSlice.reducer
   }
 });
 

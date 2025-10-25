@@ -33,7 +33,7 @@ export const HOME_WIDGET_SECTIONS = [
 ];
 export const NAV_LINKS = [
   { to: '/', label: 'Головна', end: true },
-  { to: '/movies', label: 'Фільми' },
+  { to: '/movies', label: 'Фільми', match: ['/movies', '/movie'] },
   { to: '/tv', label: 'Серіали' }
 ];
 // Pagination
