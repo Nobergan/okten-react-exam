@@ -1,15 +1,16 @@
 import { useEffect, useState, useMemo } from 'react';
+import { useNavigate } from 'react-router';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
-
-import './HeroSliderComponent.css';
-
-import { getDate, getImageUrl, getTitle } from '@utils';
+import { useAppDispatch, useAppSelector } from '@redux';
 import { heroSliderFilmsActions } from '@redux/slices';
 
+import { getDate, getImageUrl, getTitle } from '@utils';
+
 import type { MediaSourceType, MediaType } from '@types';
-import { useAppDispatch, useAppSelector } from '@redux';
+
+import './HeroSliderComponent.css';
 
 type HeroSliderProps = {
   source: MediaSourceType;
@@ -23,6 +24,7 @@ export const HeroSliderComponent = ({
   getGenreNames
 }: HeroSliderProps) => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { films, loading, lastFetch } = useAppSelector(
     (state) => state.heroSlider
   );
@@ -32,7 +34,6 @@ export const HeroSliderComponent = ({
     dispatch(heroSliderFilmsActions.loadFilms({ source, mediaType }));
   }, [dispatch, mediaType, source]);
 
-  // Responsive slides for thumbs
   const thumbsBreakpoints = useMemo(
     () => ({
       0: { slidesPerView: 4, spaceBetween: 8 },
@@ -85,7 +86,7 @@ export const HeroSliderComponent = ({
                 className='absolute inset-0 h-full w-full object-cover'
               />
 
-              {/* Left-to-right gradient for darkening */}
+              {/* Separator */}
               <div className='absolute inset-0 bg-[linear-gradient(0deg,rgba(0,0,0,0.9)_0%,rgba(0,0,0,0.6)_65%,transparent_100%)] sm:bg-[linear-gradient(90deg,rgba(0,0,0,0.75)_0%,rgba(0,0,0,0.65)_40%,rgba(0,0,0,0.45)_70%,rgba(0,0,0,0.3)_100%)] lg:bg-[linear-gradient(90deg,rgba(0,0,0,0.95)_0%,rgba(0,0,0,0.85)_35%,rgba(0,0,0,0.55)_50%,rgba(0,0,0,0.25)_70%,transparent_100%)]' />
 
               {/* Content block */}
@@ -127,6 +128,9 @@ export const HeroSliderComponent = ({
                   <button
                     type='button'
                     className='mt-4 inline-flex items-center rounded-full bg-red-600 px-5 py-3 text-sm font-semibold shadow-lg transition-colors hover:bg-red-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-400 active:bg-red-600 sm:mt-6 sm:px-7 sm:py-3.5 sm:text-base'
+                    onClick={() => {
+                      navigate(`/${film.media_type || mediaType}/${film.id}`);
+                    }}
                   >
                     Дивитись
                   </button>

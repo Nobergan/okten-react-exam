@@ -54,8 +54,8 @@ export const loadFilms = createAsyncThunk<
     try {
       const res =
         source === MediaSource.Trend
-          ? await getTrendFilms(mediaType)
-          : await getPopularFilms(mediaType);
+          ? await getTrendFilms(mediaType as MediaType)
+          : await getPopularFilms(mediaType as MediaType);
       const films = res?.results ?? [];
 
       return { films, key, fromCache: false };
