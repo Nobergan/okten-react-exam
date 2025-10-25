@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router';
-import { HomePage, MoviesPage, TvShowsPage } from '@pages';
+import { FilmDetailsPage, HomePage, MoviesPage, TvShowsPage } from '@pages';
 import { Layout } from '@layouts';
 
 export const routes = createBrowserRouter([
@@ -8,7 +8,8 @@ export const routes = createBrowserRouter([
     children: [
       { path: '/', element: <HomePage /> },
       { path: 'movies', element: <MoviesPage /> },
-      { path: 'tv', element: <TvShowsPage /> }
+      { path: 'tv', element: <TvShowsPage /> },
+      { path: ':mediaType/:id', element: <FilmDetailsPage /> }
     ]
   }
 ]);
