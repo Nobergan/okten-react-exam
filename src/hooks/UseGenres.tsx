@@ -7,7 +7,7 @@ import { Media } from '@constants';
 
 export const UseGenres = () => {
   const dispatch = useAppDispatch();
-  const itemsByType = useAppSelector((s) => s.genres.itemsByType);
+  const itemsByType = useAppSelector((state) => state.genres.itemsByType);
 
   const mapGenresIdsToNames = (arr: ApiGenre[]) =>
     new Map(arr.map((g) => [g.id, g.name]));

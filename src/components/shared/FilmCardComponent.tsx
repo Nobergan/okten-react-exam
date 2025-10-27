@@ -1,12 +1,19 @@
 import { getDate, getImageUrl, getTitle } from '@utils';
 import type { ApiFilm } from '@models';
 
-type FilmCardProps = { film: ApiFilm; filmGenres: string };
+type FilmCardProps = { film: ApiFilm; filmGenres: string; onClick: () => void };
 
-export const FilmCardComponent = ({ film, filmGenres }: FilmCardProps) => {
+export const FilmCardComponent = ({
+  film,
+  filmGenres,
+  onClick
+}: FilmCardProps) => {
   return (
     <>
-      <div className='relative overflow-hidden rounded-2xl bg-zinc-900/40'>
+      <div
+        className='relative cursor-pointer overflow-hidden rounded-2xl bg-zinc-900/40'
+        onClick={onClick}
+      >
         {/* Poster */}
         <div className='aspect-[2/3] w-full'>
           {film.poster_path ? (

@@ -17,7 +17,7 @@ export const TvShowsPage = () => {
       <FilmsListComponent
         mediaType={Media.Tv}
         getGenreNames={getGenreNames}
-        title={'Рекомендуємо'}
+        title={'Серіали'}
       />
     </>
   );

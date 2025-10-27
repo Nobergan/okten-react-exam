@@ -77,7 +77,7 @@ export const getFilmTrailer = async (
 
     if (!data.results?.length) return null;
 
-    const video = pickBestVideo(data.results);
+    const video = pickVideo(data.results);
 
     return video ? `https://www.youtube.com/embed/${video.key}` : null;
   } catch {
@@ -85,7 +85,17 @@ export const getFilmTrailer = async (
   }
 };
 
-const pickBestVideo = (videos: TmdbVideo[]): TmdbVideo | undefined =>
+export const getFilmsByGenre = async (
+  mediaType: MediaType,
+  genreId: number,
+  page = 1
+): Promise<ApiFilms> => {
+  return await fetch(
+    `${baseUrl}/discover/${mediaType}?with_genres=${genreId}&page=${page}&language=uk-UK&api_key=${tmdbApiKey}`
+  ).then((response: Response) => response.json());
+};
+
+const pickVideo = (videos: TmdbVideo[]): TmdbVideo | undefined =>
   videos.find((v) => v?.key && v.site === 'YouTube' && v.type === 'Trailer') ??
   videos.find((v) => v?.key && v.site === 'YouTube') ??
   videos.find((v) => !!v?.key);

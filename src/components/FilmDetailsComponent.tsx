@@ -19,10 +19,12 @@ export const FilmDetailsComponent = ({ mediaType, id }: Props) => {
   const isTv = mediaType === Media.Tv;
 
   useEffect(() => {
-    if (!loading || !lastFetch) {
+    if (!lastFetch) {
       dispatch(filmDetailsActions.loadFilmDetails({ mediaType, id }));
       dispatch(filmDetailsActions.loadFilmTrailer({ mediaType, id }));
     }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [dispatch, mediaType, id, lastFetch, loading]);
 
   if (loading && !data) {

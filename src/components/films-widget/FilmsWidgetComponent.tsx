@@ -8,6 +8,7 @@ import { filmsWidgetActions } from '@redux/slices';
 import { FilmCardComponent } from '@components/shared';
 
 import type { MediaSourceType, MediaType } from '@types';
+import { useNavigate } from 'react-router';
 
 type FilmsWidgetProps = {
   title: string;
@@ -26,6 +27,8 @@ export const FilmsWidgetComponent = ({
   const { films, loading, error, lastFetch } = useAppSelector(
     (state) => state.filmsWidget.bySource[source][mediaType]
   );
+  const navigate = useNavigate();
+
   const filmPrev = `films-prev-${useId()}`;
   const filmNext = `films-next-${useId()}`;
 
@@ -86,6 +89,9 @@ export const FilmsWidgetComponent = ({
                   key={film.id}
                   film={film}
                   filmGenres={getGenreNames(film.genre_ids, mediaType)}
+                  onClick={() => {
+                    navigate(`/${film.media_type || mediaType}/${film.id}`);
+                  }}
                 />
               </div>
             </SwiperSlide>

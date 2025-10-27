@@ -17,7 +17,7 @@ export const MoviesPage = () => {
       <FilmsListComponent
         mediaType={Media.Movie}
         getGenreNames={getGenreNames}
-        title={'Рекомендуємо'}
+        title={'Фільми'}
       />
     </>
   );

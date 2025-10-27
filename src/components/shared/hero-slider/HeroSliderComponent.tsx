@@ -24,11 +24,11 @@ export const HeroSliderComponent = ({
   getGenreNames
 }: HeroSliderProps) => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const { films, loading, lastFetch } = useAppSelector(
     (state) => state.heroSlider
   );
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(heroSliderFilmsActions.loadFilms({ source, mediaType }));
@@ -127,7 +127,7 @@ export const HeroSliderComponent = ({
 
                   <button
                     type='button'
-                    className='mt-4 inline-flex items-center rounded-full bg-red-600 px-5 py-3 text-sm font-semibold shadow-lg transition-colors hover:bg-red-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-400 active:bg-red-600 sm:mt-6 sm:px-7 sm:py-3.5 sm:text-base'
+                    className='mt-4 inline-flex cursor-pointer items-center rounded-full bg-red-600 px-5 py-3 text-sm font-semibold shadow-lg transition-colors hover:bg-red-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-400 active:bg-red-600 sm:mt-6 sm:px-7 sm:py-3.5 sm:text-base'
                     onClick={() => {
                       navigate(`/${film.media_type || mediaType}/${film.id}`);
                     }}
