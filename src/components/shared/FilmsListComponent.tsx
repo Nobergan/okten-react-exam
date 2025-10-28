@@ -66,7 +66,7 @@ export const FilmsListComponent = ({
     if (fresh || sameInFlight) return;
 
     dispatch(
-      filmsListActions.loadFilms({
+      filmsListActions.loadFilmsList({
         mediaType,
         page: currentPage,
         genreId: selectedGenre ?? undefined

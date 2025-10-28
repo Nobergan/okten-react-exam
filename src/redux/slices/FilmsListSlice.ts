@@ -34,7 +34,7 @@ const initialState: FilmsListState = {
   tv: { ...emptyState }
 };
 
-export const loadFilms = createAsyncThunk<
+export const loadFilmsList = createAsyncThunk<
   ApiFilms,
   { mediaType: TransformedMediaType; page: number; genreId?: number | null }
 >('loadFilmsList', async ({ mediaType, page, genreId }, thunkAPI) => {
@@ -50,7 +50,7 @@ export const filmsListSlice = createSlice({
   reducers: {},
   extraReducers: (builder) =>
     builder
-      .addCase(loadFilms.pending, (state, action) => {
+      .addCase(loadFilmsList.pending, (state, action) => {
         const { mediaType, page, genreId } = action.meta.arg;
         const key = buildRequestKey(genreId, page);
         const stateByMediaType = state[mediaType];
@@ -59,7 +59,7 @@ export const filmsListSlice = createSlice({
         stateByMediaType.error = null;
         stateByMediaType.inFlightKey = key;
       })
-      .addCase(loadFilms.fulfilled, (state, action) => {
+      .addCase(loadFilmsList.fulfilled, (state, action) => {
         const { mediaType, page, genreId } = action.meta.arg;
         const key = buildRequestKey(genreId, page);
         const payload = action.payload;
@@ -73,7 +73,7 @@ export const filmsListSlice = createSlice({
         stateByMediaType.lastKey = key;
         stateByMediaType.inFlightKey = null;
       })
-      .addCase(loadFilms.rejected, (state, action) => {
+      .addCase(loadFilmsList.rejected, (state, action) => {
         const { mediaType } = action.meta.arg;
         const stateByMediaType = state[mediaType];
 
@@ -85,5 +85,5 @@ export const filmsListSlice = createSlice({
 
 export const filmsListActions = {
   ...filmsListSlice.actions,
-  loadFilms
+  loadFilmsList
 };
