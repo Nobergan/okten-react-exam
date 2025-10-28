@@ -1,8 +1,8 @@
-import { createBrowserRouter } from 'react-router';
+import { createHashRouter } from 'react-router';
 import { FilmDetailsPage, HomePage, MoviesPage, TvShowsPage } from '@pages';
 import { Layout } from '@layouts';
 
-export const routes = createBrowserRouter([
+export const routes = createHashRouter([
   {
     element: <Layout />,
     children: [

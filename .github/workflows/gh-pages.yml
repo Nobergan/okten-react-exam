@@ -35,7 +35,6 @@ jobs:
         env:
           VITE_TMDB_BASE_URL: ${{ secrets.VITE_TMDB_BASE_URL }}
           VITE_TMDB_API_KEY: ${{ secrets.VITE_TMDB_API_KEY }}
-          VITE_TMDB_ACCESS_TOKEN: ${{ secrets.VITE_TMDB_ACCESS_TOKEN }}
 
       - uses: actions/upload-pages-artifact@v3
         with:
