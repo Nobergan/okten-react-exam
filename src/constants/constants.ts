@@ -38,6 +38,7 @@ export const NAV_LINKS = [
   { to: '/movies', label: 'Фільми', match: ['/movies', '/movie'] },
   { to: '/tv', label: 'Серіали' }
 ];
+
 // Pagination
 export const FILMS_LIST_MAX_PAGE_COUNT = 500;
 export const PAGINATION_LABELS = {
@@ -58,6 +59,7 @@ export const PAGINATION_CLASSES = {
   disabledLink:
     'cursor-pointer opacity-50 cursor-not-allowed hover:!bg-transparent hover:!border-white/30'
 };
+
 // Genres select styles
 export const GENRES_SELECT_STYLES: StylesConfig<
   GenreOption,

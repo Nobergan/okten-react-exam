@@ -32,7 +32,7 @@ export const FilmsListComponent = ({
 
   const [selectedGenre, setSelectedGenre] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [hydrated, setHydrated] = useState(false); // ← гейт гідрації
+  const [hydrated, setHydrated] = useState(false);
 
   const GENRE_STORAGE_KEY = `genre_${mediaType}`;
   const PAGE_STORAGE_KEY = `page_${mediaType}`;

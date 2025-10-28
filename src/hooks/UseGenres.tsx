@@ -9,8 +9,8 @@ export const UseGenres = () => {
   const dispatch = useAppDispatch();
   const itemsByType = useAppSelector((state) => state.genres.itemsByType);
 
-  const mapGenresIdsToNames = (arr: ApiGenre[]) =>
-    new Map(arr.map((g) => [g.id, g.name]));
+  const mapGenresIdsToNames = (genres: ApiGenre[]) =>
+    new Map(genres.map((genre) => [genre.id, genre.name]));
 
   const genreMaps = useMemo(
     () => ({
