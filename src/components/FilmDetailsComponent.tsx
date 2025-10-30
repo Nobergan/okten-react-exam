@@ -1,31 +1,38 @@
 import { useEffect } from 'react';
 
-import { useAppDispatch, useAppSelector } from '@redux';
-import { filmDetailsActions, makeFilmKey } from '@redux/slices';
+import {
+  useGetFilmDetailsQuery,
+  useGetFilmTrailerQuery
+} from '@redux/services';
 
-import { getDate, getGenres, getRuntime, getTitle } from '@utils';
-
-import type { TransformedMediaType } from '@types';
+import {
+  getDate,
+  getGenres,
+  getRuntime,
+  getTitle,
+  rtkErrorMessage
+} from '@utils';
 import { Media } from '@constants';
+import type { TransformedMediaType } from '@types';
 
 type Props = { mediaType: TransformedMediaType; id: number };
 
 export const FilmDetailsComponent = ({ mediaType, id }: Props) => {
-  const dispatch = useAppDispatch();
-  const key = makeFilmKey(mediaType, id);
-  const { loading, error, data, lastFetch, trailerUrl } =
-    useAppSelector((state) => state.filmDetails.byKey[key]) ?? {};
-
   const isTv = mediaType === Media.Tv;
 
-  useEffect(() => {
-    if (!lastFetch) {
-      dispatch(filmDetailsActions.loadFilmDetails({ mediaType, id }));
-      dispatch(filmDetailsActions.loadFilmTrailer({ mediaType, id }));
-    }
+  const { data, isLoading, isFetching, isError, error } =
+    useGetFilmDetailsQuery(
+      { mediaType, id },
+      { refetchOnMountOrArgChange: 300 }
+    );
 
+  const { data: trailerUrl } = useGetFilmTrailerQuery({ mediaType, id });
+
+  useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [dispatch, mediaType, id, lastFetch, loading]);
+  }, [mediaType, id]);
+
+  const loading = isLoading || isFetching;
 
   if (loading && !data) {
     return (
@@ -35,10 +42,10 @@ export const FilmDetailsComponent = ({ mediaType, id }: Props) => {
     );
   }
 
-  if (error && !data) {
+  if (isError && !data) {
     return (
       <div className='container mx-auto px-3 py-6 text-center text-red-400'>
-        {error}
+        {rtkErrorMessage(error)}
       </div>
     );
   }
@@ -167,7 +174,7 @@ export const FilmDetailsComponent = ({ mediaType, id }: Props) => {
             )}
 
             <div>
-              <div className='font-extrabод text-sm tracking-wide uppercase sm:text-base'>
+              <div className='text-sm font-extrabold tracking-wide uppercase sm:text-base'>
                 Студія
               </div>
               <div className='mt-2 text-lg whitespace-pre-line sm:mt-3 sm:text-xl'>
@@ -187,7 +194,6 @@ export const FilmDetailsComponent = ({ mediaType, id }: Props) => {
           </div>
         </div>
 
-        {/* Separator */}
         <div className='mt-8 h-[2px] w-full bg-[linear-gradient(90deg,rgba(0,0,0,0)_0%,#f80032_50%,rgba(0,0,0,0)_100%)] sm:mt-10' />
       </div>
     </div>

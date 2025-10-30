@@ -1,31 +1,30 @@
-import { useCallback, useEffect, useMemo } from 'react';
-import { useAppDispatch, useAppSelector } from '@redux';
-import { genresActions } from '@redux/slices';
-import type { ApiGenre } from '@models';
-import type { MediaType } from '@types';
+import { useCallback, useMemo } from 'react';
+
+import { useGetGenresQuery } from '@redux/services';
+
 import { Media } from '@constants';
+import type { MediaType } from '@types';
 
 export const UseGenres = () => {
-  const dispatch = useAppDispatch();
-  const itemsByType = useAppSelector((state) => state.genres.itemsByType);
-
-  const mapGenresIdsToNames = (genres: ApiGenre[]) =>
-    new Map(genres.map((genre) => [genre.id, genre.name]));
+  const { data: movieMap } = useGetGenresQuery(Media.Movie);
+  const { data: tvMap } = useGetGenresQuery(Media.Tv);
 
   const genreMaps = useMemo(
     () => ({
-      movie: mapGenresIdsToNames(itemsByType.movie),
-      tv: mapGenresIdsToNames(itemsByType.tv)
+      movie: new Map(
+        Object.entries(movieMap ?? {}).map(([id, name]) => [Number(id), name])
+      ),
+      tv: new Map(
+        Object.entries(tvMap ?? {}).map(([id, name]) => [Number(id), name])
+      )
     }),
-    [itemsByType.movie, itemsByType.tv]
+    [movieMap, tvMap]
   );
 
   const getGenreNames = useCallback(
-    (ids: number[] | undefined, type?: MediaType | undefined) => {
+    (ids: number[] | undefined, type: MediaType = Media.Movie) => {
       if (!ids?.length) return '';
-
       const map = type === Media.Tv ? genreMaps.tv : genreMaps.movie;
-
       return ids
         .map((id) => map.get(id))
         .filter(Boolean)
@@ -33,11 +32,6 @@ export const UseGenres = () => {
     },
     [genreMaps]
   );
-
-  useEffect(() => {
-    dispatch(genresActions.loadGenres({ mediaType: Media.Movie }));
-    dispatch(genresActions.loadGenres({ mediaType: Media.Tv }));
-  }, [dispatch]);
 
   return { genreMaps, getGenreNames };
 };

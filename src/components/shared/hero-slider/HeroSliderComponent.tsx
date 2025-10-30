@@ -1,14 +1,14 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
-import { useAppDispatch, useAppSelector } from '@redux';
-import { heroSliderFilmsActions } from '@redux/slices';
 
-import { getDate, getImageUrl, getTitle } from '@utils';
+import { useGetHeroFilmsQuery } from '@redux/services';
+import { getDate, getImageUrl, getTitle, rtkErrorMessage } from '@utils';
 
 import type { MediaSourceType, MediaType } from '@types';
+import { TTL_MS } from '@constants';
 
 import './HeroSliderComponent.css';
 
@@ -20,19 +20,22 @@ type HeroSliderProps = {
 
 export const HeroSliderComponent = ({
   source,
-  mediaType,
+  mediaType = 'movie',
   getGenreNames
 }: HeroSliderProps) => {
-  const dispatch = useAppDispatch();
-  const { films, loading, lastFetch } = useAppSelector(
-    (state) => state.heroSlider
+  const {
+    data: films = [],
+    isLoading,
+    isFetching,
+    isError,
+    error
+  } = useGetHeroFilmsQuery(
+    { source, mediaType },
+    { refetchOnMountOrArgChange: TTL_MS }
   );
+
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    dispatch(heroSliderFilmsActions.loadFilms({ source, mediaType }));
-  }, [dispatch, mediaType, source]);
 
   const thumbsBreakpoints = useMemo(
     () => ({
@@ -47,7 +50,7 @@ export const HeroSliderComponent = ({
     []
   );
 
-  if (loading && !lastFetch) {
+  if (isLoading && isFetching) {
     return (
       <div className='flex min-h-[60svh] items-center justify-center'>
         <div className='h-10 w-10 animate-spin rounded-full border-b-4 border-red-600' />
@@ -55,10 +58,10 @@ export const HeroSliderComponent = ({
     );
   }
 
-  if (!films?.length) {
+  if (isError && !films?.length) {
     return (
-      <div className='container mx-auto px-3 py-6 text-center text-gray-500'>
-        No films found.
+      <div className='container mx-auto px-3 py-6 text-center text-red-400'>
+        {rtkErrorMessage(error)}
       </div>
     );
   }

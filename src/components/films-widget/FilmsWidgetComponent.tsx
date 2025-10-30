@@ -1,14 +1,14 @@
-import { useEffect, useId } from 'react';
+import { useId } from 'react';
+import { useNavigate } from 'react-router';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 
-import { useAppDispatch, useAppSelector } from '@redux';
-import { filmsWidgetActions } from '@redux/slices';
-
 import { FilmCardComponent } from '@components/shared';
+import { useGetWidgetFilmsQuery } from '@redux/services';
 
+import { TTL_MS } from '@constants';
 import type { MediaSourceType, MediaType } from '@types';
-import { useNavigate } from 'react-router';
+import { rtkErrorMessage } from '@utils';
 
 type FilmsWidgetProps = {
   title: string;
@@ -23,22 +23,23 @@ export const FilmsWidgetComponent = ({
   source,
   getGenreNames
 }: FilmsWidgetProps) => {
-  const dispatch = useAppDispatch();
-  const { films, loading, error, lastFetch } = useAppSelector(
-    (state) => state.filmsWidget.bySource[source][mediaType]
-  );
   const navigate = useNavigate();
+
+  const {
+    data: films = [],
+    isLoading,
+    isFetching,
+    isError,
+    error
+  } = useGetWidgetFilmsQuery(
+    { source, mediaType },
+    { refetchOnMountOrArgChange: TTL_MS }
+  );
 
   const filmPrev = `films-prev-${useId()}`;
   const filmNext = `films-next-${useId()}`;
 
-  useEffect(() => {
-    if (!lastFetch) {
-      dispatch(filmsWidgetActions.loadWidgetFilms({ mediaType, source }));
-    }
-  }, [dispatch, mediaType, source, lastFetch]);
-
-  if (loading && !lastFetch) {
+  if ((isLoading || isFetching) && !films.length) {
     return (
       <div className='flex min-h-[60svh] items-center justify-center'>
         <div className='h-10 w-10 animate-spin rounded-full border-b-4 border-red-600' />
@@ -46,15 +47,15 @@ export const FilmsWidgetComponent = ({
     );
   }
 
-  if (error && !films.length) {
+  if (isError && !films.length) {
     return (
       <div className='container mx-auto px-3 py-6 text-center text-red-400'>
-        {error}
+        {rtkErrorMessage(error)}
       </div>
     );
   }
 
-  if (!films?.length) {
+  if (!films.length) {
     return (
       <div className='container mx-auto px-3 py-6 text-center text-gray-500'>
         No films found.
