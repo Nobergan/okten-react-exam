@@ -31,14 +31,13 @@
       "@components/shared": ["src/components/shared/index.ts"],
       "@layouts": ["src/layouts/index.ts"],
       "@pages": ["src/pages/index.ts"],
-      "@services": ["src/services/index.ts"],
       "@models": ["src/models/index.ts"],
       "@types": ["src/types/index.ts"],
       "@constants": ["src/constants/index.ts"],
       "@hooks": ["src/hooks/index.ts"],
       "@utils": ["src/utils/index.ts"],
       "@redux": ["src/redux/index.ts"],
-      "@redux/slices": ["src/redux/slices/index.ts"]
+      "@redux/services": ["src/redux/services/index.ts"]
     }
   },
   "include": ["src"]

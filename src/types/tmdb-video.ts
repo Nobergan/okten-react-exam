@@ -1,7 +1,12 @@
-export type TmdbVideo = {
-  id: string;
+export interface ApiVideoItem {
   key: string;
-  name: string;
-  site: 'YouTube' | 'Vimeo' | string;
-  type: 'Trailer' | 'Teaser' | 'Clip' | string;
-};
+  site: string;
+  type: string;
+  official?: boolean;
+  name?: string;
+}
+
+export interface ApiVideosResponse {
+  id: number;
+  results: ApiVideoItem[];
+}

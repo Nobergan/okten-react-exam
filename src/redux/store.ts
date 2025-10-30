@@ -1,24 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { useDispatch, useSelector } from 'react-redux';
+import { setupListeners } from '@reduxjs/toolkit/query';
 
-import {
-  genresSlice,
-  heroSliderSlice,
-  filmsWidgetSlice,
-  filmsListSlice,
-  filmDetailsSlice
-} from '@redux/slices';
+import { tmdbApi } from '@redux/services';
 
 export const store = configureStore({
   reducer: {
-    heroSlider: heroSliderSlice.reducer,
-    genres: genresSlice.reducer,
-    filmsWidget: filmsWidgetSlice.reducer,
-    filmsList: filmsListSlice.reducer,
-    filmDetails: filmDetailsSlice.reducer
-  }
+    [tmdbApi.reducerPath]: tmdbApi.reducer
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(tmdbApi.middleware)
 });
 
-export const useAppDispatch = useDispatch.withTypes<typeof store.dispatch>();
-export const useAppSelector =
-  useSelector.withTypes<ReturnType<typeof store.getState>>();
+setupListeners(store.dispatch);

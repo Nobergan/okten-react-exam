@@ -1,2 +1,2 @@
 export * from './film-data.ts';
-export * from './error-message.ts';
+export * from './rtk-error-message.ts';
