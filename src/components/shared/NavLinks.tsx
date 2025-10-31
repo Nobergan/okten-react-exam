@@ -1,4 +1,6 @@
 import { NavLink, useLocation } from 'react-router';
+import type { FC } from 'react';
+
 import { NAV_LINKS } from '@constants';
 
 type NavLinksProps = {
@@ -6,7 +8,7 @@ type NavLinksProps = {
   onItemClick?: () => void;
 };
 
-export function NavLinks({ listClassName, onItemClick }: NavLinksProps) {
+export const NavLinks: FC<NavLinksProps> = ({ listClassName, onItemClick }) => {
   const { pathname } = useLocation();
   const checkActiveRoute = (to: string) => {
     if (to === '/movies') {
@@ -27,7 +29,7 @@ export function NavLinks({ listClassName, onItemClick }: NavLinksProps) {
   return (
     <ul className={listClassName}>
       {NAV_LINKS.map(({ to, label, end }) => {
-        const active = checkActiveRoute(to);
+        const isActive = checkActiveRoute(to);
 
         return (
           <li key={to}>
@@ -35,13 +37,13 @@ export function NavLinks({ listClassName, onItemClick }: NavLinksProps) {
               to={to}
               end={end}
               onClick={onItemClick}
-              className={`${baseLink} ${active}`}
+              className={`${baseLink} ${isActive ? 'text-white' : 'text-gray-300 hover:text-white'}`}
             >
               {label}
               <span
-                className={`absolute -bottom-1 left-0 h-[2px] ${
-                  active ? 'w-full' : 'w-0'
-                } bg-red-600 transition-all duration-200 group-hover:w-full`}
+                className={`absolute -bottom-1 left-0 h-[2px] bg-red-600 transition-all duration-200 ${
+                  isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                }`}
               />
             </NavLink>
           </li>
@@ -49,4 +51,4 @@ export function NavLinks({ listClassName, onItemClick }: NavLinksProps) {
       })}
     </ul>
   );
-}
+};

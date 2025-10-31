@@ -5,3 +5,4 @@ export * from './endpoints/genres.api';
 export * from './endpoints/widgets.api';
 export * from './endpoints/hero-slider.api';
 export * from './endpoints/films-list.api';
+export * from './endpoints/films-search.api';

@@ -29,7 +29,6 @@
       "@assets": ["src/assets/index.ts"],
       "@components": ["src/components/index.ts"],
       "@components/shared": ["src/components/shared/index.ts"],
-      "@layouts": ["src/layouts/index.ts"],
       "@pages": ["src/pages/index.ts"],
       "@models": ["src/models/index.ts"],
       "@types": ["src/types/index.ts"],

@@ -48,11 +48,11 @@ export const getRuntime = (
  */
 export const getImageUrl = (
   path: string | null | undefined,
-  size: 'original' | 'w300' | 'w780' | 'w1280' = 'original'
+  size: 'original' | 'w300' | 'w500' | 'w780' | 'w1280' = 'original'
 ): string => (path ? `https://image.tmdb.org/t/p/${size}/${path}` : '');
 
 /**
  * Returns formatted genre list as comma-separated string.
  */
 export const getGenres = (film: ApiFilmDetails): string =>
-  film.genres?.map((g) => g.name).join(', ') ?? '';
+  film.genres?.map((genre) => genre.name).join(', ') ?? '';

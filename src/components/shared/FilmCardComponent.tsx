@@ -1,13 +1,14 @@
 import { getDate, getImageUrl, getTitle } from '@utils';
 import type { ApiFilm } from '@models';
+import type { FC } from 'react';
 
 type FilmCardProps = { film: ApiFilm; filmGenres: string; onClick: () => void };
 
-export const FilmCardComponent = ({
+export const FilmCardComponent: FC<FilmCardProps> = ({
   film,
   filmGenres,
   onClick
-}: FilmCardProps) => {
+}) => {
   return (
     <>
       <div

@@ -12,9 +12,11 @@ export const genresApi = tmdbApi.injectEndpoints({
       }),
       transformResponse: (resp: ApiGenresResponse) => {
         const map: Record<number, string> = {};
+
         resp.genres?.forEach((genre) => {
           map[genre.id] = genre.name;
         });
+
         return map;
       }
     })

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { type FC, useEffect } from 'react';
 
 import {
   useGetFilmDetailsQuery,
@@ -8,16 +8,21 @@ import {
 import {
   getDate,
   getGenres,
+  getImageUrl,
   getRuntime,
   getTitle,
   rtkErrorMessage
 } from '@utils';
 import { Media } from '@constants';
 import type { TransformedMediaType } from '@types';
+import { TrailerFallback } from './TrailerFallback.tsx';
 
-type Props = { mediaType: TransformedMediaType; id: number };
+type FilmDetailsProps = { mediaType: TransformedMediaType; id: number };
 
-export const FilmDetailsComponent = ({ mediaType, id }: Props) => {
+export const FilmDetailsComponent: FC<FilmDetailsProps> = ({
+  mediaType,
+  id
+}) => {
   const isTv = mediaType === Media.Tv;
 
   const { data, isLoading, isFetching, isError, error } =
@@ -26,7 +31,8 @@ export const FilmDetailsComponent = ({ mediaType, id }: Props) => {
       { refetchOnMountOrArgChange: 300 }
     );
 
-  const { data: trailerUrl } = useGetFilmTrailerQuery({ mediaType, id });
+  const { data: trailerUrl, isFetching: trailerLoading } =
+    useGetFilmTrailerQuery({ mediaType, id });
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -61,9 +67,11 @@ export const FilmDetailsComponent = ({ mediaType, id }: Props) => {
   return (
     <div className='container w-full text-white'>
       {/* Trailer */}
-      {trailerUrl && (
-        <div className='mt-[82px] px-3'>
-          <div className='relative w-full overflow-hidden rounded-xl pb-[56.25%] shadow-xl ring-1 ring-white/10 sm:rounded-2xl'>
+      <div className='z-[10] mt-[82px] px-3'>
+        <div className='relative w-full overflow-hidden rounded-xl pb-[56.25%] shadow-xl ring-1 ring-white/10 sm:rounded-2xl'>
+          {trailerLoading ? (
+            <div className='absolute inset-0 animate-pulse bg-white/5' />
+          ) : trailerUrl ? (
             <iframe
               src={trailerUrl}
               title='Трейлер'
@@ -72,9 +80,18 @@ export const FilmDetailsComponent = ({ mediaType, id }: Props) => {
               allowFullScreen
               className='absolute top-0 left-0 h-full w-full'
             />
-          </div>
+          ) : (
+            <TrailerFallback
+              title={getTitle(data)}
+              isTv={isTv}
+              backdropUrl={(() => {
+                const path = data.backdrop_path || data.poster_path;
+                return path ? getImageUrl(path) : '';
+              })()}
+            />
+          )}
         </div>
-      )}
+      </div>
 
       {/* Title and Genres */}
       <div className='px-3 pt-5 sm:pt-8'>

@@ -1,7 +1,7 @@
 import { logo } from '@assets';
 import { NavLinks } from './NavLinks.tsx';
 
-export default function Footer() {
+export const Footer = () => {
   return (
     <footer className='w-full bg-black text-white/90'>
       <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
@@ -117,4 +117,4 @@ export default function Footer() {
       </div>
     </footer>
   );
-}
+};

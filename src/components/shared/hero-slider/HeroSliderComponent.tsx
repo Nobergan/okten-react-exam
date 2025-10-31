@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, type FC } from 'react';
 import { useNavigate } from 'react-router';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
@@ -18,11 +18,11 @@ type HeroSliderProps = {
   getGenreNames: (genreIds: number[] | undefined, type?: MediaType) => string;
 };
 
-export const HeroSliderComponent = ({
+export const HeroSliderComponent: FC<HeroSliderProps> = ({
   source,
   mediaType = 'movie',
   getGenreNames
-}: HeroSliderProps) => {
+}) => {
   const {
     data: films = [],
     isLoading,
