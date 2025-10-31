@@ -1,4 +1,4 @@
-import React from 'react';
+import { type FC } from 'react';
 import Select from 'react-select';
 import { UseGenres } from '@hooks';
 import { GENRES_SELECT_STYLES } from '@constants';
@@ -9,7 +9,7 @@ type FiltersProps = {
   onGenreChange: (genreId: number | null) => void;
 };
 
-export const FiltersComponent: React.FC<FiltersProps> = ({
+export const FiltersComponent: FC<FiltersProps> = ({
   mediaType,
   selectedGenre,
   onGenreChange

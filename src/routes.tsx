@@ -1,10 +1,10 @@
 import { createHashRouter } from 'react-router';
 import { FilmDetailsPage, HomePage, MoviesPage, TvShowsPage } from '@pages';
-import { Layout } from '@layouts';
+import App from './App.tsx';
 
 export const routes = createHashRouter([
   {
-    element: <Layout />,
+    element: <App />,
     children: [
       { path: '/', element: <HomePage /> },
       { path: 'movies', element: <MoviesPage /> },

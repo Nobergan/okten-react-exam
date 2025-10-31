@@ -1,4 +1,4 @@
-import { useId } from 'react';
+import { type FC, useId } from 'react';
 import { useNavigate } from 'react-router';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
@@ -17,12 +17,12 @@ type FilmsWidgetProps = {
   getGenreNames: (genreIds: number[] | undefined, type?: MediaType) => string;
 };
 
-export const FilmsWidgetComponent = ({
+export const FilmsWidgetComponent: FC<FilmsWidgetProps> = ({
   title,
   mediaType = 'movie',
   source,
   getGenreNames
-}: FilmsWidgetProps) => {
+}) => {
   const navigate = useNavigate();
 
   const {

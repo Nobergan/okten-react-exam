@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { type FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 import ReactPaginate from 'react-paginate';
 
@@ -22,11 +22,11 @@ type FilmsListProps = {
   title: string;
 };
 
-export const FilmsListComponent = ({
+export const FilmsListComponent: FC<FilmsListProps> = ({
   mediaType = 'movie',
   getGenreNames,
   title
-}: FilmsListProps) => {
+}) => {
   const navigate = useNavigate();
 
   const [selectedGenre, setSelectedGenre] = useState<number | null>(null);
