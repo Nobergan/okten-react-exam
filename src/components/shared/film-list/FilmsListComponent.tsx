@@ -4,7 +4,7 @@ import ReactPaginate from 'react-paginate';
 
 import { useGetFilmsListQuery } from '@redux/services';
 import { FilmCardComponent } from '@components/shared';
-import { FiltersComponent } from './FiltersComponent.tsx';
+import { FiltersComponent } from '../filters/FiltersComponent.tsx';
 
 import type { MediaType, TransformedMediaType } from '@types';
 import type { ApiFilm } from '@models';

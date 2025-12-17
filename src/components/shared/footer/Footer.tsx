@@ -1,5 +1,5 @@
 import { logo } from '@assets';
-import { NavLinks } from './NavLinks.tsx';
+import { NavLinks } from '../NavLinks.tsx';
 
 export const Footer = () => {
   return (

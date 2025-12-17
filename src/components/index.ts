@@ -1,3 +1,3 @@
 export * from './films-widget/FilmsWidgetComponent.tsx';
-export * from './FilmDetailsComponent.tsx';
-export * from './TrailerFallback.tsx';
+export * from './film-details/FilmDetailsComponent.tsx';
+export * from './film-details/TrailerFallback.tsx';

@@ -6,8 +6,8 @@ import type { ApiFilm } from '@models';
 import { useSearchFilmsQuery } from '@redux/services';
 import { useDebounce } from '@utils';
 
-import { NavLinks } from './NavLinks.tsx';
-import { SearchFilmsList } from './SearchFilmsList.tsx';
+import { NavLinks } from '../NavLinks.tsx';
+import { SearchFilmsList } from '../SearchFilmsList.tsx';
 
 export const Header = () => {
   const navigate = useNavigate();
